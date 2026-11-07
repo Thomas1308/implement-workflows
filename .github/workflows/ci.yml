@@ -11,6 +11,6 @@ jobs:
       - run: cmake --build build
       - run: ctest --test-dir build --output-on-failure
       - uses: actions/upload-artifact@v7
-      with:
-        name: bin
-        path: build/cpu_monitor_app
+        with:
+          name: bin
+          path: build/cpu_monitor_app
