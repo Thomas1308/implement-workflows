@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -14,3 +14,14 @@ jobs:
         with:
           name: bin
           path: build/cpu_monitor_app
+  test:
+      needs: build
+      runs-on: ubuntu-latest
+      steps: 
+      - uses : actions/download-artifact@v8
+      - run : ctest --test-dir build
+  deploy:
+      needs: test
+      runs-on: ubuntu-latest
+      steps:
+        - run: ./deploy.sh
